@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Compliance Training Module Privilege -->
+        <record id="res_groups_privilege_compliance_training" model="res.groups.privilege">
+            <field name="name">Compliance Training</field>
+            <field name="sequence">60</field>
+        </record>
+
+        <!-- User (Read Only) -->
+        <record id="group_compliance_user" model="res.groups">
+            <field name="name">User (Read Only)</field>
+            <field name="sequence">10</field>
+            <field name="privilege_id" ref="res_groups_privilege_compliance_training"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Can view training content and logs. Cannot create, edit, or delete.</field>
+        </record>
+
+        <!-- Manager -->
+        <record id="group_compliance_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="sequence">20</field>
+            <field name="privilege_id" ref="res_groups_privilege_compliance_training"/>
+            <field name="implied_ids" eval="[(4, ref('group_compliance_user'))]"/>
+            <field name="comment">Can manage trainees and training logs. Cannot delete or modify configuration.</field>
+        </record>
+
+        <!-- Administrator -->
+        <record id="group_compliance_admin" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="sequence">30</field>
+            <field name="privilege_id" ref="res_groups_privilege_compliance_training"/>
+            <field name="implied_ids" eval="[(4, ref('group_compliance_manager'))]"/>
+            <field name="comment">Full access including configuration, content management, and deletion.</field>
+        </record>
+    </data>
+</odoo>
