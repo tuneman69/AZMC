@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="training_portal">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+                <t t-call-assets="web.assets_frontend" t-css="false"/>
+            </t>
+            <div id="wrap" class="container mt-4">
+                <div class="text-center mb-4">
+                    <h2><t t-esc="content.title"/></h2>
+                    <p class="text-muted">Revision: <t t-esc="content.revision"/></p>
+                </div>
+                <div class="card p-4 mb-4">
+                    <div class="mb-4"><t t-out="content.description"/></div>
+                    
+                    <!-- VIDEO SECTION -->
+                    <t t-if="content.content_type == 'video'">
+                        <div class="ratio ratio-16x9">
+                            <iframe t-att-src="content.embed_url" 
+                                    sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen="allowfullscreen">
+                            </iframe>
+                        </div>
+                    </t>
+                    
+                    <!-- FILE DOWNLOAD SECTION (UPDATED FOR EXTERNAL USERS) -->
+                    <t t-if="content.content_type == 'file'">
+                        <div class="text-center">
+                            <!-- Link now points to the Python function that handles Token verification -->
+                            <a t-attf-href="/training/download/#{log.access_token}" class="btn btn-lg btn-success">
+                                <i class="fa fa-download"></i> Download Procedure
+                            </a>
+                        </div>
+                    </t>
+                </div>
+
+                <div class="card p-4">
+                    <form id="signForm" action="/training/submit" method="POST">
+                        <input type="hidden" name="token" id="token" t-att-value="log.access_token"/>
+                        <input type="hidden" name="signature_base64" id="signatureInput"/>
+                        
+                        <t t-if="questions">
+                            <h4 class="mb-3">Competency Check</h4>
+                            <p class="text-muted small">You must answer correctly to sign.</p>
+                            <t t-foreach="questions" t-as="q">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold"><t t-esc="q.question_text"/></label>
+                                    <div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" t-attf-name="question_#{q.id}" value="true" required="required"/>
+                                            <label class="form-check-label">True</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" t-attf-name="question_#{q.id}" value="false"/>
+                                            <label class="form-check-label">False</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <hr/>
+                        </t>
+
+                        <h4>Acknowledgment</h4>
+                        <p>I, <strong><t t-esc="trainee.name"/></strong>, certify that I have reviewed this document.</p>
+                        <label>Sign Below:</label>
+                        <canvas id="signatureCanvas" class="border w-100" height="200" style="background:#fff;"></canvas>
+                        <div class="mt-2"><button id="clearBtn" type="button" class="btn btn-secondary btn-sm">Clear</button></div>
+                        <div class="mt-4 d-grid"><button type="button" id="submitBtn" class="btn btn-primary btn-lg">Submit Certification</button></div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="quiz_failed">
+        <t t-call="web.layout">
+            <div class="container text-center mt-5">
+                <h1 class="text-danger">Competency Check Failed</h1>
+                <div class="card p-4 mt-4 mx-auto" style="max-width: 500px;">
+                    <h3>Your Score: <t t-esc="percent"/>%</h3>
+                    <p class="text-muted">Required to Pass: <t t-esc="required"/>%</p>
+                    <hr/>
+                    <p>Please review the training material and try again.</p>
+                    <a t-attf-href="/training/#{token}" class="btn btn-primary mt-3">Return to Training</a>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="404_page"><t t-call="web.layout"><div class="container text-center mt-5"><h1>Link Expired or Invalid</h1></div></t></template>
+    <template id="already_completed"><t t-call="web.layout"><div class="container text-center mt-5"><h1 class="text-success">Training Completed</h1><p>You have already signed off on this revision.</p></div></t></template>
+    <template id="thank_you_page"><t t-call="web.layout"><div class="container text-center mt-5"><h1 class="text-success">Thank You!</h1><p>Your competency record has been updated.</p></div></t></template>
+</odoo>

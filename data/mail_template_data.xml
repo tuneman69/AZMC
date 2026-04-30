@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template_training_request" model="mail.template">
+            <field name="name">Compliance: Training Request</field>
+            <field name="model_id" ref="model_ct_log"/>
+            <field name="subject">Required Training: {{ object.content_id.title }} (Rev {{ object.content_id.revision }})</field>
+            
+            <!-- SENDER SETTINGS -->
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="mail_server_id" eval="False"/>
+            
+            <!-- RECIPIENT SETTINGS -->
+            <field name="use_default_to" eval="False"/>
+            <field name="email_to">{{ object.trainee_id.email }}</field>
+            <field name="reply_to">{{ user.email_formatted }}</field>
+            
+            <!-- EMAIL BODY -->
+            <field name="body_html" type="html">
+                <div>
+                    <p>Hello <t t-out="object.trainee_id.name"/>,</p>
+                    <p>You have been assigned the following training module:</p>
+                    <ul>
+                        <li><strong>Title:</strong> <t t-out="object.content_id.title"/></li>
+                        <li><strong>Revision:</strong> <t t-out="object.content_id.revision"/></li>
+                    </ul>
+                    <p>Please click the link below to review the material:</p>
+                    <div style="margin: 16px 0px;">
+                        <a t-att-href="object.training_url"
+                           style="background-color: #875A7B; padding: 8px 16px; color: #fff; text-decoration: none; border-radius: 5px;">
+                           View Training
+                        </a>
+                    </div>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>

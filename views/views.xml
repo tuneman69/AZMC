@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ======================================================== -->
+    <!-- JOB ROLE LIST (Configuration)                            -->
+    <!-- ======================================================== -->
+    <record id="view_ct_job_role_tree" model="ir.ui.view">
+        <field name="name">ct.job.role.list</field>
+        <field name="model">ct.job.role</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ======================================================== -->
+    <!-- TRAINEE VIEWS                                            -->
+    <!-- ======================================================== -->
+    <record id="view_ct_trainee_search" model="ir.ui.view">
+        <field name="name">ct.trainee.search</field>
+        <field name="model">ct.trainee</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="employee_number"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ct_trainee_list" model="ir.ui.view">
+        <field name="name">ct.trainee.list</field>
+        <field name="model">ct.trainee</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="job_role_id"/>
+                <field name="email"/>
+                <field name="employee_number"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ct_trainee_form" model="ir.ui.view">
+        <field name="name">ct.trainee.form</field>
+        <field name="model">ct.trainee</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-list-alt" type="object" name="action_view_training_logs">
+                            <field string="History" name="log_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Trainee Name (e.g. John Doe)"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="email"/>
+                            <field name="employee_number"/>
+                        </group>
+                        <group>
+                            <field name="job_role_id" placeholder="Select or Create Role"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ======================================================== -->
+    <!-- CONTENT VIEWS                                            -->
+    <!-- ======================================================== -->
+    <record id="view_ct_content_search" model="ir.ui.view">
+        <field name="name">ct.content.search</field>
+        <field name="model">ct.content</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="title"/>
+                <field name="revision"/>
+                <separator/>
+                <filter string="Archived (Old Revisions)" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ct_content_form" model="ir.ui.view">
+        <field name="name">ct.content.form</field>
+        <field name="model">ct.content</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_revision" groups="compliance_training.group_compliance_admin" string="Create New Revision" type="object" class="oe_highlight" confirm="This will Archive the current revision and create a new Draft. Proceed?"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="title" class="oe_edit_only"/>
+                        <h1><field name="title"/></h1>
+                        <h3>Rev: <field name="revision" readonly="1"/></h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="delivery_method" widget="radio" options="{'horizontal': true}"/>
+                            <field name="frequency_months" required="1"/>
+                            <field name="min_pass_score"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group invisible="delivery_method == 'otj'">
+                            <field name="content_type"/>
+                            <field name="video_url" invisible="content_type != 'video'"/>
+                            <field name="file_data" filename="file_name" invisible="content_type != 'file'"/>
+                            <field name="file_name" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Competency Quiz" invisible="delivery_method == 'otj'">
+                            <field name="question_ids">
+                                <list editable="bottom">
+                                    <field name="question_text"/>
+                                    <field name="correct_answer"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ======================================================== -->
+    <!-- LOG VIEWS                                                -->
+    <!-- ======================================================== -->
+    <record id="view_ct_log_form" model="ir.ui.view">
+        <field name="name">ct.log.form</field>
+        <field name="model">ct.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_email" groups="compliance_training.group_compliance_manager" type="object" string="Resend Email" class="oe_highlight" invisible="state != 'draft' or delivery_method == 'otj'"/>
+                    <button name="action_open_otj_wizard" groups="compliance_training.group_compliance_manager" type="object" string="Record OTJ Result" class="oe_highlight" invisible="state == 'completed' or delivery_method == 'online'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="trainee_id"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="content_id"/>
+                            <field name="revision"/>
+                            <field name="completion_date"/>
+                            <field name="delivery_method"/>
+                        </group>
+                        <group>
+                            <field name="expiry_date"/>
+                            <field name="training_url" widget="url" readonly="1" invisible="delivery_method == 'otj'"/>
+                            <field name="quiz_score"/>
+                            <field name="access_token" groups="base.group_no_one"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Signature Evidence" invisible="delivery_method == 'otj'">
+                            <field name="signature_image" widget="image"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ct_log_list" model="ir.ui.view">
+        <field name="name">ct.log.list</field>
+        <field name="model">ct.log</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state=='completed'" decoration-danger="state=='expired'" decoration-warning="state=='sent'">
+                <field name="trainee_id"/>
+                <field name="content_id"/>
+                <field name="revision"/>
+                <field name="delivery_method" optional="show"/>
+                <field name="completion_date"/>
+                <field name="expiry_date"/>
+                <field name="state" string="Status" widget="badge" decoration-success="state == 'completed'" decoration-danger="state == 'expired'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ct_log_pivot" model="ir.ui.view">
+        <field name="name">ct.log.pivot</field>
+        <field name="model">ct.log</field>
+        <field name="arch" type="xml">
+            <pivot string="Competency Matrix">
+                <field name="trainee_id" type="row"/>
+                <field name="content_id" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ======================================================== -->
+    <!-- DASHBOARD GRAPH VIEWS                                    -->
+    <!-- ======================================================== -->
+
+    <!-- Graph 1: Trainings Completed by Month (bar) -->
+    <record id="view_ct_log_graph_by_month" model="ir.ui.view">
+        <field name="name">ct.log.graph.by.month</field>
+        <field name="model">ct.log</field>
+        <field name="arch" type="xml">
+            <graph string="Trainings Completed by Month" type="bar" sample="1">
+                <field name="completion_date" interval="month" type="row"/>
+                <field name="delivery_method" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Graph 2: Training Status Breakdown (pie) -->
+    <record id="view_ct_log_graph_by_status" model="ir.ui.view">
+        <field name="name">ct.log.graph.by.status</field>
+        <field name="model">ct.log</field>
+        <field name="arch" type="xml">
+            <graph string="Training Status Breakdown" type="pie" sample="1">
+                <field name="state" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Graph 3: Trainings by Delivery Method (bar) -->
+    <record id="view_ct_log_graph_by_delivery" model="ir.ui.view">
+        <field name="name">ct.log.graph.by.delivery</field>
+        <field name="model">ct.log</field>
+        <field name="arch" type="xml">
+            <graph string="Trainings by Delivery Method" type="bar" sample="1">
+                <field name="completion_date" interval="month" type="row"/>
+                <field name="state" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ======================================================== -->
+    <!-- WIZARD VIEWS                                             -->
+    <!-- ======================================================== -->
+    <record id="view_ct_rev_reassign_form" model="ir.ui.view">
+        <field name="name">ct.rev.reassign.form</field>
+        <field name="model">ct.rev.reassign</field>
+        <field name="arch" type="xml">
+            <form string="Reassign Training to New Revision">
+                <sheet>
+                    <div class="alert alert-warning" role="alert">
+                        <strong>New revision created.</strong> The trainees listed below previously
+                        completed the old revision. Click <strong>Reassign &amp; Send</strong> to
+                        automatically create new training assignments and send notification emails.
+                        Click <strong>Skip</strong> to assign manually later as usual.
+                    </div>
+                    <group>
+                        <field name="new_content_id" readonly="1"/>
+                        <field name="old_revision" readonly="1" string="Previous Revision"/>
+                        <field name="trainee_count" readonly="1" string="Trainees Found"/>
+                    </group>
+                    <group>
+                        <field name="trainee_ids" widget="many2many_tags" string="Trainees to Reassign"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_reassign"
+                            string="Reassign &amp; Send Emails"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_skip"
+                            string="Skip — I will assign manually"
+                            type="object"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ct_batch_assign_form" model="ir.ui.view">
+        <field name="name">ct.batch.assign.form</field>
+        <field name="model">ct.batch.assign</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="content_ids" widget="many2many_tags"/>
+                    <field name="target_mode" widget="radio"/>
+                </group>
+                <group invisible="target_mode != 'tag'">
+                    <field name="tag_ids" widget="many2many_tags"/>
+                </group>
+                <group invisible="target_mode != 'role'">
+                    <field name="job_role_id"/>
+                </group>
+                <group invisible="target_mode != 'specific'">
+                    <field name="trainee_ids" widget="many2many_tags"/>
+                </group>
+                <footer>
+                    <button string="Assign &amp; Send" name="action_assign" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ct_otj_wizard_form" model="ir.ui.view">
+        <field name="name">ct.otj.wizard.form</field>
+        <field name="model">ct.otj.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        You are verifying On-The-Job training. Please enter the date this training actually occurred.
+                    </div>
+                    <group>
+                        <field name="completion_date"/>
+                        <field name="trainer_name"/>
+                        <field name="notes" placeholder="E.g. Trainee demonstrated safe forklift operation..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm &amp; Mark Complete" name="action_confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ct_historical_import_form" model="ir.ui.view">
+        <field name="name">ct.historical.import.form</field>
+        <field name="model">ct.historical.import</field>
+        <field name="arch" type="xml">
+            <form string="Import Historical Training Records">
+                <sheet>
+                    <group invisible="state != 'draft'">
+                        <div class="alert alert-info" role="alert" colspan="2">
+                            <strong>One-step historical import.</strong> Upload a single CSV and the system will
+                            automatically create any missing Trainees, Job Roles, and Content records,
+                            then mark all logs as <strong>Completed</strong>. No emails will be sent.
+                        </div>
+                        <div colspan="2">
+                            <h4>Required CSV Columns:</h4>
+                            <ul>
+                                <li><code>employee_name</code> — Full name of the trainee</li>
+                                <li><code>content_title</code> — Title of the training content</li>
+                                <li><code>completion_date</code> — Format: YYYY-MM-DD</li>
+                                <li><code>delivery_method</code> — Must be <code>online</code> or <code>otj</code></li>
+                            </ul>
+                            <h4>Optional CSV Columns:</h4>
+                            <ul>
+                                <li><code>employee_number</code> — Employee ID</li>
+                                <li><code>job_role</code> — Will be created if it does not exist</li>
+                                <li><code>email</code> — Trainee email (auto-generated if omitted)</li>
+                                <li><code>revision</code> — Content revision letter (default: A)</li>
+                                <li><code>frequency_months</code> — Retraining frequency (default: 12)</li>
+                                <li><code>score</code> — Quiz score or result (default: Historical Import)</li>
+                            </ul>
+                        </div>
+                        <field name="csv_file" filename="csv_filename" colspan="2"
+                               widget="binary" string="Upload CSV File"/>
+                        <field name="csv_filename" invisible="1"/>
+                        <field name="state" invisible="1"/>
+                    </group>
+                    <group invisible="state != 'done'">
+                        <div class="alert alert-success" role="alert" colspan="2">
+                            <strong>Import finished!</strong> Review the summary below.
+                        </div>
+                        <field name="result_summary" colspan="2" readonly="1"
+                               widget="text" nolabel="1"
+                               style="font-family: monospace; font-size: 1.1em; white-space: pre;"/>
+                    </group>
+                    <group invisible="state != 'done' or result_errors == 0">
+                        <separator string="Row Errors (fix and re-import these rows)" colspan="2"/>
+                        <field name="result_error_detail" colspan="2" readonly="1"
+                               widget="text" nolabel="1"
+                               style="font-family: monospace; color: #c0392b; white-space: pre;"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_import"
+                            string="Import Records"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button string="Close"
+                            class="btn-primary"
+                            special="cancel"
+                            invisible="state != 'done'"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                            invisible="state != 'draft'"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- ======================================================== -->
+    <!-- ACTIONS                                                  -->
+    <!-- ======================================================== -->
+    <record id="action_ct_job_role" model="ir.actions.act_window">
+        <field name="name">Job Roles</field>
+        <field name="res_model">ct.job.role</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="action_ct_log" model="ir.actions.act_window">
+        <field name="name">Training Logs</field>
+        <field name="res_model">ct.log</field>
+        <field name="view_mode">list,form,pivot</field>
+    </record>
+
+    <!-- Auto-expire server action: fires when log list loads -->
+    <record id="action_ct_log_auto_expire" model="ir.actions.server">
+        <field name="name">Auto-Expire Overdue Training</field>
+        <field name="model_id" ref="model_ct_log"/>
+        <field name="binding_model_id" ref="model_ct_log"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            model.action_auto_expire()
+        </field>
+    </record>
+
+    <record id="action_ct_log_send_reminder" model="ir.actions.server">
+        <field name="name">Resend Email / Reminder</field>
+        <field name="model_id" ref="model_ct_log"/>
+        <field name="binding_model_id" ref="model_ct_log"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            records.action_send_email()
+        </field>
+    </record>
+
+    <record id="action_ct_content" model="ir.actions.act_window">
+        <field name="name">Training Content</field>
+        <field name="res_model">ct.content</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="action_ct_trainee" model="ir.actions.act_window">
+        <field name="name">Trainees</field>
+        <field name="res_model">ct.trainee</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_ct_batch" model="ir.actions.act_window">
+        <field name="name">Assign Training</field>
+        <field name="res_model">ct.batch.assign</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <record id="action_ct_historical_import" model="ir.actions.act_window">
+        <field name="name">Import Historical Records</field>
+        <field name="res_model">ct.historical.import</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Dashboard Action 1: Trainings by Month (bar chart) -->
+    <record id="action_ct_dashboard_by_month" model="ir.actions.act_window">
+        <field name="name">Trainings by Month</field>
+        <field name="res_model">ct.log</field>
+        <field name="view_mode">graph,pivot,list</field>
+    </record>
+
+    <!-- Dashboard Action 2: Status Breakdown (pie chart) -->
+    <record id="action_ct_dashboard_by_status" model="ir.actions.act_window">
+        <field name="name">Status Breakdown</field>
+        <field name="res_model">ct.log</field>
+        <field name="view_mode">graph,list</field>
+    </record>
+
+    <!-- Dashboard Action 3: By Delivery Method (bar chart) -->
+    <record id="action_ct_dashboard_by_delivery" model="ir.actions.act_window">
+        <field name="name">By Delivery Method</field>
+        <field name="res_model">ct.log</field>
+        <field name="view_mode">graph,pivot,list</field>
+    </record>
+
+    <!-- ======================================================== -->
+    <!-- MENUS                                                    -->
+    <!-- ======================================================== -->
+    <menuitem id="menu_compliance_root" name="Compliance" web_icon="compliance_training,static/description/icon.png"/>
+
+    <!-- Dashboard parent menu — sequence 5 puts it first -->
+    <menuitem id="menu_compliance_dashboard_root"
+              name="Dashboard"
+              parent="menu_compliance_root"
+              sequence="20"
+              groups="compliance_training.group_compliance_manager"/>
+
+    <menuitem id="menu_compliance_dashboard_month"
+              name="Trainings by Month"
+              parent="menu_compliance_dashboard_root"
+              action="action_ct_dashboard_by_month"
+              sequence="10"
+              groups="compliance_training.group_compliance_manager"/>
+
+    <menuitem id="menu_compliance_dashboard_status"
+              name="Status Breakdown"
+              parent="menu_compliance_dashboard_root"
+              action="action_ct_dashboard_by_status"
+              sequence="20"
+              groups="compliance_training.group_compliance_manager"/>
+
+    <menuitem id="menu_compliance_dashboard_delivery"
+              name="By Delivery Method"
+              parent="menu_compliance_dashboard_root"
+              action="action_ct_dashboard_by_delivery"
+              sequence="30"
+              groups="compliance_training.group_compliance_manager"/>
+
+    <!-- Existing menus — unchanged -->
+    <menuitem id="menu_compliance_dashboard" name="Logs &amp; Matrix" parent="menu_compliance_root" action="action_ct_log" sequence="5"/>
+    <menuitem id="menu_compliance_content" name="Content" parent="menu_compliance_root" action="action_ct_content" sequence="20"/>
+    <menuitem id="menu_compliance_trainees" name="Trainees" parent="menu_compliance_root" action="action_ct_trainee" sequence="30"/>
+    <menuitem id="menu_compliance_batch" name="Assign Training" parent="menu_compliance_root" action="action_ct_batch" sequence="40" groups="compliance_training.group_compliance_manager"/>
+
+    <menuitem id="menu_compliance_config" name="Configuration" parent="menu_compliance_root" sequence="100" groups="compliance_training.group_compliance_admin"/>
+    <menuitem id="menu_compliance_roles" name="Job Roles" parent="menu_compliance_config" action="action_ct_job_role" sequence="10"/>
+    <menuitem id="menu_compliance_historical_import" name="Import Historical Records" parent="menu_compliance_config" action="action_ct_historical_import" sequence="20" groups="compliance_training.group_compliance_admin"/>
+
+</odoo>
