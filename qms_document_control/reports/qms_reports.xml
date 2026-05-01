@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- The Action that appears in the "Print" menu -->
+        <record id="action_report_qms_verification" model="ir.actions.report">
+            <field name="name">Controlled Copy Verification</field>
+            <field name="model">qms.document</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">qms_document_control.report_qms_verification</field>
+            <field name="report_file">qms_document_control.report_qms_verification</field>
+            <field name="binding_model_id" ref="model_qms_document"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

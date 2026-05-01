@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_qms_folder_user,qms.folder.user,model_qms_folder,qms_document_control.group_qms_user,1,0,0,0
+access_qms_folder_manager,qms.folder.manager,model_qms_folder,qms_document_control.group_qms_manager,1,1,1,0
+access_qms_folder_admin,qms.folder.admin,model_qms_folder,qms_document_control.group_qms_admin,1,1,1,1
+access_qms_document_user,qms.document.user,model_qms_document,qms_document_control.group_qms_user,1,0,0,0
+access_qms_document_manager,qms.document.manager,model_qms_document,qms_document_control.group_qms_manager,1,1,1,0
+access_qms_document_admin,qms.document.admin,model_qms_document,qms_document_control.group_qms_admin,1,1,1,1
+access_qms_reject_wizard_manager,qms.reject.wizard.manager,model_qms_reject_wizard,qms_document_control.group_qms_manager,1,1,1,1
+access_qms_reject_wizard_admin,qms.reject.wizard.admin,model_qms_reject_wizard,qms_document_control.group_qms_admin,1,1,1,1

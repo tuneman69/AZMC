@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Root Folder -->
+        <record id="folder_root" model="qms.folder">
+            <field name="name">Quality Management System</field>
+        </record>
+
+        <!-- ISO Level 1: Quality Manual -->
+        <record id="folder_level_1" model="qms.folder">
+            <field name="name">Level 1 - Quality Manual</field>
+            <field name="parent_id" ref="folder_root"/>
+        </record>
+
+        <!-- ISO Level 2: Procedures (SOPs) -->
+        <record id="folder_level_2" model="qms.folder">
+            <field name="name">Level 2 - Procedures (SOPs)</field>
+            <field name="parent_id" ref="folder_root"/>
+        </record>
+
+        <!-- ISO Level 3: Work Instructions -->
+        <record id="folder_level_3" model="qms.folder">
+            <field name="name">Level 3 - Work Instructions</field>
+            <field name="parent_id" ref="folder_root"/>
+        </record>
+
+        <!-- ISO Level 4: Forms -->
+        <record id="folder_level_4" model="qms.folder">
+            <field name="name">Level 4 - Forms &amp; Records</field>
+            <field name="parent_id" ref="folder_root"/>
+        </record>
+    </data>
+</odoo>

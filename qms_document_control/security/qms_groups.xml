@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QMS Documents Module Privilege (Category) -->
+        <record id="res_groups_privilege_qms_documents" model="res.groups.privilege">
+            <field name="name">QMS Documents</field>
+            <field name="sequence">62</field>
+        </record>
+
+        <!-- USER (Read Only) -->
+        <record id="group_qms_user" model="res.groups">
+            <field name="name">User (Read Only)</field>
+            <field name="sequence">10</field>
+            <field name="privilege_id" ref="res_groups_privilege_qms_documents"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">Can view documents and folders. Cannot create, edit, or delete.</field>
+        </record>
+
+        <!-- MANAGER (RW - No Delete) -->
+        <record id="group_qms_manager" model="res.groups">
+            <field name="name">Manager (Process Owner)</field>
+            <field name="sequence">20</field>
+            <field name="privilege_id" ref="res_groups_privilege_qms_documents"/>
+            <field name="implied_ids" eval="[(4, ref('group_qms_user'))]"/>
+            <field name="comment">Can create and edit documents. Cannot delete.</field>
+        </record>
+
+        <!-- ADMIN (Full Access) -->
+        <record id="group_qms_admin" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="sequence">30</field>
+            <field name="privilege_id" ref="res_groups_privilege_qms_documents"/>
+            <field name="implied_ids" eval="[(4, ref('group_qms_manager'))]"/>
+            <field name="comment">Full access including deletion and configuration.</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="email_template_qms_doc_submitted" model="mail.template">
+            <field name="name">QMS Document: Submitted for Review</field>
+            <field name="model_id" ref="model_qms_document"/>
+            <field name="subject">Action Required: Review Requested - {{ object.name }} - {{ object.title }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="use_default_to" eval="False"/>
+            <field name="email_to">{{ object.reviewer_id.email }}</field>
+            <field name="reply_to">{{ user.email_formatted }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Hello <t t-out="object.reviewer_id.name"/>,</p>
+                    <p><strong>A document has been submitted and requires your review and approval.</strong></p>
+                    <ul>
+                        <li><strong>Document Number:</strong> <t t-out="object.name"/></li>
+                        <li><strong>Title:</strong> <t t-out="object.title"/></li>
+                        <li><strong>Revision:</strong> <t t-out="object.revision"/></li>
+                        <li><strong>Submitted By:</strong> <t t-out="object.process_owner_id.name"/></li>
+                    </ul>
+                    <p>Please log in, verify the template layout and formatting, then click <strong>Approve (Reviewer)</strong> or <strong>Reject / Return</strong>.</p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="email_template_qms_doc_reviewer_approved" model="mail.template">
+            <field name="name">QMS Document: Reviewer Approved - Awaiting QM Publish</field>
+            <field name="model_id" ref="model_qms_document"/>
+            <field name="subject">Action Required: Final Publish - {{ object.name }} - {{ object.title }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="use_default_to" eval="False"/>
+            <field name="email_to">{{ object.quality_manager_id.email }}</field>
+            <field name="reply_to">{{ user.email_formatted }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Hello <t t-out="object.quality_manager_id.name"/>,</p>
+                    <p><strong>A document has passed Document Reviewer approval and is awaiting your final publish.</strong></p>
+                    <ul>
+                        <li><strong>Document Number:</strong> <t t-out="object.name"/></li>
+                        <li><strong>Title:</strong> <t t-out="object.title"/></li>
+                        <li><strong>Revision:</strong> <t t-out="object.revision"/></li>
+                        <li><strong>Process Owner:</strong> <t t-out="object.process_owner_id.name"/></li>
+                        <li><strong>Reviewed By:</strong> <t t-out="object.reviewer_id.name"/></li>
+                    </ul>
+                    <p>Please log in, review the document, then click <strong>Final Publish</strong> or <strong>Reject / Return</strong>.</p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="email_template_qms_doc_qm_reject" model="mail.template">
+            <field name="name">QMS Document: Returned by QM to Reviewer</field>
+            <field name="model_id" ref="model_qms_document"/>
+            <field name="subject">RETURNED: {{ object.name }} - {{ object.title }} - Please Re-Review</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="use_default_to" eval="False"/>
+            <field name="email_to">{{ object.reviewer_id.email }}</field>
+            <field name="reply_to">{{ user.email_formatted }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Hello <t t-out="object.reviewer_id.name"/>,</p>
+                    <p style="color:red;font-weight:bold;">RETURNED FOR RE-REVIEW</p>
+                    <p>The Quality Manager has returned document <strong><t t-out="object.name"/> - <t t-out="object.title"/></strong> (Rev <t t-out="object.revision"/>) to the Under Review stage.</p>
+                    <p><strong>Action Required:</strong> Please log in, check the chatter for comments, and re-approve when ready.</p>
+                    <p><em>Returned by: <t t-out="user.name"/></em></p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="email_template_qms_doc_reminder" model="mail.template">
+            <field name="name">QMS Document: Annual Review Reminder</field>
+            <field name="model_id" ref="model_qms_document"/>
+            <field name="subject">Action Required: {{ object.name }} Annual Review</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="use_default_to" eval="False"/>
+            <field name="email_to">{{ object.process_owner_id.email }}</field>
+            <field name="reply_to">{{ user.email_formatted }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Hello <t t-out="object.process_owner_id.name"/>,</p>
+                    <p><strong>REMINDER: Annual Review Required</strong></p>
+                    <ul>
+                        <li><strong>Document:</strong> <t t-out="object.name"/></li>
+                        <li><strong>Title:</strong> <t t-out="object.title"/></li>
+                        <li><strong>Next Review Date:</strong> <t t-out="object.next_review_date"/></li>
+                    </ul>
+                    <p>Please review this document. If still valid, click <strong>Confirm Review</strong> in the system.</p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="email_template_qms_doc_reject" model="mail.template">
+            <field name="name">QMS Document: Rejection Notice</field>
+            <field name="model_id" ref="model_qms_document"/>
+            <field name="subject">REJECTED: {{ object.name }} - {{ object.title }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="use_default_to" eval="False"/>
+            <field name="email_to">{{ object.process_owner_id.email }}</field>
+            <field name="reply_to">{{ user.email_formatted }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Hello <t t-out="object.process_owner_id.name"/>,</p>
+                    <p style="color:red;font-weight:bold;">REJECTED / RETURNED TO DRAFT</p>
+                    <p>The document <strong><t t-out="object.name"/></strong> (Rev <t t-out="object.revision"/>) was returned to draft status.</p>
+                    <p><strong>Action Required:</strong> Please log in, review the chatter comments, and revise the document.</p>
+                    <p><em>Returned by: <t t-out="user.name"/></em></p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+        <record id="email_template_qms_doc_publish" model="mail.template">
+            <field name="name">QMS Document: Publication Notice</field>
+            <field name="model_id" ref="model_qms_document"/>
+            <field name="subject">PUBLISHED: {{ object.name }} - {{ object.title }}</field>
+            <field name="email_from">{{ (object.company_id.email or user.email) }}</field>
+            <field name="use_default_to" eval="False"/>
+            <field name="email_to">{{ object.process_owner_id.email }},{{ object.reviewer_id.email }},{{ object.quality_manager_id.email }}</field>
+            <field name="body_html" type="html">
+                <div>
+                    <p><strong>OFFICIAL RELEASE</strong></p>
+                    <p>Document <strong><t t-out="object.name"/> - <t t-out="object.title"/></strong> (Rev <t t-out="object.revision"/>) is now published and valid for production use.</p>
+                    <ul>
+                        <li><strong>Approved By:</strong> <t t-out="object.approved_by.name"/></li>
+                        <li><strong>Approved Date:</strong> <t t-out="object.approved_date"/></li>
+                        <li><strong>Next Review Due:</strong> <t t-out="object.next_review_date"/></li>
+                    </ul>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

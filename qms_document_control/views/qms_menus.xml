@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <!--  TOP LEVEL  -->
+    <menuitem id="menu_qms_root" name="QMS Documents" web_icon="qms_document_control,static/description/icon.png" sequence="10"/>
+
+    <!--  SECTION 1: THE LIBRARY (Default View) -->
+    <record id="action_qms_document_published" model="ir.actions.act_window">
+        <field name="name">Published Documents</field>
+        <field name="res_model">qms.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'published')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"> No published documents found. </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_qms_library_main" name="Document Library" parent="menu_qms_root" sequence="10"/>
+    <menuitem id="menu_qms_library_published" name="Published Documents" parent="menu_qms_library_main" action="action_qms_document_published" sequence="10"/>
+
+    <!--  SECTION 2: THE WORKBENCH (For Owners/Managers) -->
+    <menuitem id="menu_qms_workbench_main" name="Document Control" parent="menu_qms_root" sequence="20"/>
+    
+    <record id="action_qms_document_all" model="ir.actions.act_window">
+        <field name="name">All Documents (Draft &amp; History)</field>
+        <field name="res_model">qms.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_my_docs': 1}</field>
+    </record>
+
+    <record id="action_qms_document_actions" model="ir.actions.act_window">
+        <field name="name">My Action Items</field>
+        <field name="res_model">qms.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_my_action_items': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face"> Good news! You have no pending actions. </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_qms_workbench_actions" name="My Action Items" parent="menu_qms_workbench_main" action="action_qms_document_actions" sequence="1"/>
+    <menuitem id="menu_qms_workbench_all" name="My Work / All Docs" parent="menu_qms_workbench_main" action="action_qms_document_all" sequence="10"/>
+
+    <!--  SECTION 3: METRICS (Admin Only) -->
+    <menuitem id="menu_qms_metrics_main" name="Metrics" parent="menu_qms_root" sequence="30" groups="qms_document_control.group_qms_admin"/>
+    <menuitem id="menu_qms_metrics_overview" name="Document Metrics" parent="menu_qms_metrics_main" action="action_qms_metrics_pivot" sequence="10" groups="qms_document_control.group_qms_admin"/>
+    <menuitem id="menu_qms_metrics_overdue" name="Overdue Reviews" parent="menu_qms_metrics_main" action="action_qms_metrics_overdue" sequence="20" groups="qms_document_control.group_qms_admin"/>
+    <menuitem id="menu_qms_metrics_folder" name="Documents by Folder" parent="menu_qms_metrics_main" action="action_qms_metrics_by_folder" sequence="30" groups="qms_document_control.group_qms_admin"/>
+
+    <!--  CONFIGURATION  -->
+    <menuitem id="menu_qms_config" name="Configuration" parent="menu_qms_root" groups="base.group_system" sequence="100"/>
+</data>
+</odoo>
