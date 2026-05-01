@@ -1,12 +1,13 @@
 {
     'name': "QMS Calibration",
     'version': '19.0.1.0.0',
-    'summary': "Manage calibration and verification records for AS9100D compliance.",
+    'summary': 'Manage calibration and verification records for ISO 9001, IATF 16949, and AS9100D compliance.',
     'category': 'Quality',
-    'author': 'T&M Consulting',
+    'author': "T&M Consulting",
     'license': 'OPL-1',
-    'price': 149.99,
+    'price': 225.00,
     'currency': 'USD',
+    'website': 'https://github.com/tuneman69/AZMC',
     'depends': [
         'base',
         'mail',
