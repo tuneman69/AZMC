@@ -3,7 +3,7 @@
     'name': "Compliance Training",
     'version': '19.0.1.0.0',
     'summary': "Competency & Training Management System",
-    'author': "T&M Consulting",h
+    'author': "T&M Consulting"
     'category': 'Human Resources',
     'license': 'OPL-1',
     'price': 149.00,
