@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QMS CAPA &amp; Customer Complaint Management</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: #2c3e50; margin: 0; padding: 0; background: #f8f9fa; }
+    .header { background: linear-gradient(135deg, #6c3483 0%, #8e44ad 60%, #a569bd 100%); color: #fff; padding: 48px 40px 40px; text-align: center; }
+    .header h1 { margin: 0 0 10px; font-size: 2.4em; font-weight: 700; }
+    .header p { margin: 0 0 20px; font-size: 1.15em; opacity: 0.92; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 16px; }
+    .badge { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); color: #fff; border-radius: 20px; padding: 5px 14px; font-size: 0.82em; font-weight: 600; }
+    .price-badge { background: #f39c12; border: none; color: #fff; border-radius: 20px; padding: 5px 16px; font-size: 0.9em; font-weight: 700; }
+    .container { max-width: 960px; margin: 0 auto; padding: 0 20px 40px; }
+    .section { background: #fff; border-radius: 10px; padding: 30px 34px; margin: 24px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .section h2 { color: #6c3483; font-size: 1.35em; margin: 0 0 18px; border-bottom: 2px solid #e8d5f5; padding-bottom: 10px; }
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .feature-box { background: #f5eeff; border-radius: 8px; padding: 18px 20px; border-left: 4px solid #8e44ad; }
+    .feature-box h3 { margin: 0 0 8px; color: #6c3483; font-size: 1.0em; }
+    .feature-box p { margin: 0; font-size: 0.92em; color: #555; line-height: 1.5; }
+    .workflow { display: flex; gap: 0; margin: 20px 0; overflow: hidden; border-radius: 8px; }
+    .workflow-step { flex: 1; padding: 16px 10px; text-align: center; background: #f5eeff; font-size: 0.85em; font-weight: 600; color: #6c3483; position: relative; }
+    .workflow-step.active { background: #8e44ad; color: #fff; }
+    .workflow-step .step-num { display: block; font-size: 1.3em; margin-bottom: 4px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+    th { background: #6c3483; color: #fff; padding: 10px 14px; text-align: left; }
+    td { padding: 9px 14px; border-bottom: 1px solid #eee; }
+    tr:nth-child(even) td { background: #f9f4ff; }
+    .standards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+    .standard-card { background: #f5eeff; border-radius: 8px; padding: 16px; border-top: 3px solid #8e44ad; }
+    .standard-card h4 { margin: 0 0 8px; color: #6c3483; font-size: 0.95em; }
+    .standard-card p { margin: 0; font-size: 0.85em; color: #555; }
+    .highlight { background: linear-gradient(135deg, #f5eeff, #e8d5f5); border-radius: 10px; padding: 24px 28px; border: 1px solid #c39bd3; margin: 20px 0; }
+    .highlight h3 { color: #6c3483; margin: 0 0 12px; }
+    .highlight ul { margin: 0; padding-left: 22px; }
+    .highlight li { margin: 6px 0; font-size: 0.93em; color: #444; }
+    .screenshots img { max-width: 100%; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); margin: 12px 0; display: block; }
+    .footer { text-align: center; color: #888; font-size: 0.88em; padding: 20px; border-top: 1px solid #e9ecef; margin-top: 10px; }
+  </style>
+</head>
+<body>
+<div class="header">
+  <h1>QMS CAPA &amp; Customer Complaint Management</h1>
+  <p>Full-lifecycle CAPA for Odoo 19 - Customer Complaints, Quality Alerts, 8D Reports, and Lessons Learned</p>
+  <div class="badges">
+    <span class="badge">ISO 9001:2015</span>
+    <span class="badge">IATF 16949:2016</span>
+    <span class="badge">AS 9100D</span>
+    <span class="badge">Odoo 19.0</span>
+    <span class="badge">OPL-1</span>
+    <span class="price-badge">$490 USD</span>
+  </div>
+</div>
+<div class="container">
+  <div class="section">
+    <h2>Standards Compliance</h2>
+    <div class="standards">
+      <div class="standard-card"><h4>ISO 9001:2015</h4><p>Clauses 8.7 (nonconforming outputs), 10.2 (corrective action), 10.3 (continual improvement)</p></div>
+      <div class="standard-card"><h4>IATF 16949:2016</h4><p>Clauses 10.2.3 (problem solving), 10.2.4 (error-proofing), 10.2.6 (customer complaint escalation)</p></div>
+      <div class="standard-card"><h4>AS 9100D</h4><p>Clauses 8.7.1 (nonconforming outputs), 10.2 (customer notification), 10.3 (lessons learned)</p></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Key Features</h2>
+    <div class="feature-grid">
+      <div class="feature-box"><h3>Customer Complaint Tracking</h3><p>Auto-numbered complaints (CC-XXX). Capture origin, customer, RMA/claim number, part data, qty defective, containment actions, and closure in one structured form.</p></div>
+      <div class="feature-box"><h3>Quality Alert System</h3><p>Issue Quality Alerts (QA-XXX) directly from complaints. Disposition workflow: Pending, Scrap, Rework, Return to Vendor, or Use As-Is. Expiry tracking and Quality Manager approval gates.</p></div>
+      <div class="feature-box"><h3>8D Problem Solving Reports</h3><p>Structured 8-discipline reports (8D-XXX) linked to complaints and alerts. Full D1-D8 coverage: team, problem definition, containment, root cause, corrective actions, verification, and prevention.</p></div>
+      <div class="feature-box"><h3>Lessons Learned Register</h3><p>Capture institutional knowledge from every CAPA event. Searchable library for PFMEA updates, control plan revisions, and new design reviews across the organization.</p></div>
+      <div class="feature-box"><h3>Cross-Module Traceability</h3><p>Full bidirectional traceability from Complaint to Quality Alert to 8D Report to Lesson Learned. Every record shows links to related documents with smart counters.</p></div>
+      <div class="feature-box"><h3>Metrics and Dashboard</h3><p>Built-in CAPA metrics dashboard. Monitor complaints by status, average closure time, repeat defect rate, top defect part numbers, and corrective action effectiveness.</p></div>
+      <div class="feature-box"><h3>Evidence and Traceability</h3><p>Attach photos, inspection reports, and signed authorizations to Quality Alerts. Evidence organized by traceability type for complete audit-ready documentation packages.</p></div>
+      <div class="feature-box"><h3>Automated Notifications</h3><p>Automatic email notifications when Quality Alerts are issued. Templates aligned with customer-specific requirements for automotive and aerospace primes.</p></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>CAPA Lifecycle Workflow</h2>
+    <div class="workflow">
+      <div class="workflow-step active"><span class="step-num">1</span>Complaint Received</div>
+      <div class="workflow-step"><span class="step-num">2</span>Quality Alert Issued</div>
+      <div class="workflow-step"><span class="step-num">3</span>8D Report Created</div>
+      <div class="workflow-step"><span class="step-num">4</span>Root Cause Found</div>
+      <div class="workflow-step"><span class="step-num">5</span>Corrective Action</div>
+      <div class="workflow-step"><span class="step-num">6</span>Verified and Closed</div>
+      <div class="workflow-step"><span class="step-num">7</span>Lesson Captured</div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Module Screenshots</h2>
+    <div class="screenshots">
+      <img src="screenshot1.png" alt="Customer Complaint Form CC-001"/>
+      <img src="screenshot2.png" alt="Customer Complaints List View"/>
+      <img src="screenshot3.png" alt="Quality Alert Form QA-001 with Disposition Workflow"/>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Field Reference</h2>
+    <h3 style="color:#6c3483;margin:0 0 12px;">Customer Complaint Fields</h3>
+    <table>
+      <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+      <tr><td>Complaint Number</td><td>Char (auto)</td><td>Auto-generated CC-XXX sequential identifier</td></tr>
+      <tr><td>Complaint Origin</td><td>Selection</td><td>External (Customer) or Internal (Manufacturing)</td></tr>
+      <tr><td>Customer</td><td>Many2one</td><td>Linked Odoo partner (res.partner)</td></tr>
+      <tr><td>Customer Claim / RMA</td><td>Char</td><td>Customer RMA or claim reference number</td></tr>
+      <tr><td>Part Number</td><td>Char</td><td>Affected part number as shipped</td></tr>
+      <tr><td>Qty Defective</td><td>Integer</td><td>Number of defective units reported</td></tr>
+      <tr><td>Assigned To</td><td>Many2one</td><td>Quality engineer or manager responsible</td></tr>
+      <tr><td>Details of Problem</td><td>Text</td><td>Full problem description: what, where, how many</td></tr>
+      <tr><td>Immediate Containment</td><td>Text</td><td>Steps taken immediately to protect the customer</td></tr>
+      <tr><td>Status</td><td>Selection</td><td>New to QA Created to 8D Created to Closed</td></tr>
+    </table>
+    <h3 style="color:#6c3483;margin:24px 0 12px;">Quality Alert Fields</h3>
+    <table>
+      <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+      <tr><td>Alert Number</td><td>Char (auto)</td><td>Auto-generated QA-XXX sequential identifier</td></tr>
+      <tr><td>Disposition</td><td>Selection</td><td>Pending / Scrap / Rework / Return to Vendor / Use As-Is</td></tr>
+      <tr><td>Qty Total / Qty Defective</td><td>Integer</td><td>Universe quantity and confirmed defective count</td></tr>
+      <tr><td>Issue Date / Expiry Date</td><td>Date</td><td>Alert validity period (default 30 days)</td></tr>
+      <tr><td>Authorization Ref</td><td>Char</td><td>ECN, deviation, or engineering change reference</td></tr>
+      <tr><td>Signed Authorization</td><td>Binary</td><td>PDF upload for quality manager sign-off</td></tr>
+      <tr><td>Photos / Evidence</td><td>One2many</td><td>Attachments: photos, reports, inspection documents</td></tr>
+    </table>
+  </div>
+  <div class="highlight">
+    <h3>Technical Details</h3>
+    <ul>
+      <li><strong>Module Name:</strong> quality_control_capa</li>
+      <li><strong>Version:</strong> 19.0.1.0.0 (Odoo 19 native)</li>
+      <li><strong>Models:</strong> quality_control_capa.complaint, quality_control_capa.alert, quality_control_capa.8d, quality_control_capa.lesson</li>
+      <li><strong>Dependencies:</strong> base, mail (no extra modules required)</li>
+      <li><strong>License:</strong> OPL-1 (Odoo Proprietary License v1)</li>
+      <li><strong>Installation:</strong> On-Premise Odoo 19.0 - Works with Community and Enterprise editions</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Why T&amp;M Consulting CAPA?</h2>
+    <p>Built by quality professionals for quality professionals. This is a purpose-built CAPA workflow that mirrors what automotive and aerospace quality engineers actually do every day. The Customer Complaint to Quality Alert to 8D to Lessons Learned chain mirrors mandatory corrective action required by Ford Q1, GM BIQS, Stellantis SQMS, and Nadcap auditors.</p>
+    <p>Every field and workflow step was designed around actual customer-specific requirements (CSRs) and expectations for IATF 16949 and AS 9100D surveillance audits.</p>
+  </div>
+  <div class="footer">
+    Published by <strong>T&amp;M Consulting</strong> - Quality Management Systems for Odoo | Phoenix, Arizona USA<br/>
+    ISO 9001 - IATF 16949 - AS 9100D - Odoo 19.0 - OPL-1 Licensed
+  </div>
+</div>
+</body>
+</html>
