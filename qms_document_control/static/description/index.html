@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <style>
+    body { font-family: Arial, sans-serif; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #8e44ad; padding-bottom: 10px; }
+    h2 { color: #8e44ad; margin-top: 30px; }
+    .badge { display: inline-block; background: #8e44ad; color: white; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin: 3px; }
+    .badge.green { background: #27ae60; }
+    .badge.blue { background: #2980b9; }
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .feature-box { background: #f8f4ff; border-left: 4px solid #8e44ad; padding: 14px 16px; border-radius: 4px; }
+    .feature-box h3 { margin: 0 0 8px 0; color: #2c3e50; font-size: 15px; }
+    .feature-box p { margin: 0; font-size: 13px; color: #555; }
+    .workflow { background: #f0f4ff; border: 1px solid #c0cfe8; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .workflow-steps { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .step { background: #2980b9; color: white; padding: 8px 14px; border-radius: 4px; font-size: 13px; font-weight: bold; }
+    .arrow { color: #8e44ad; font-size: 20px; font-weight: bold; }
+    .standards { background: #fff8e1; border: 1px solid #f39c12; border-radius: 6px; padding: 16px; margin: 20px 0; }
+    .doc-types { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th { background: #8e44ad; color: white; padding: 10px; text-align: left; font-size: 13px; }
+    td { padding: 9px 10px; border-bottom: 1px solid #eee; font-size: 13px; }
+    tr:nth-child(even) td { background: #faf6ff; }
+    .highlight { background: #eaf7ea; border: 1px solid #27ae60; border-radius: 6px; padding: 16px; margin: 20px 0; }
+    ul { padding-left: 20px; }
+    ul li { margin: 6px 0; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+<h1>&#128196; QMS Document Control</h1>
+
+<p>
+  <span class="badge">ISO 9001</span>
+  <span class="badge">IATF 16949</span>
+  <span class="badge">AS 9100D</span>
+  <span class="badge green">Odoo 19.0</span>
+  <span class="badge blue">OPL-1 Licensed</span>
+</p>
+
+<p><strong>QMS Document Control</strong> is a complete, standards-compliant document management system built natively in Odoo. Designed for manufacturers, aerospace suppliers, and automotive companies that must meet ISO 9001, IATF 16949, and AS 9100D document control requirements — without the cost of standalone QMS software.</p>
+
+<h2>&#9989; Standards Compliance</h2>
+<div class="standards">
+  <p>Built to satisfy the document control clauses of all three major quality management standards:</p>
+  <ul>
+    <li><strong>ISO 9001:2015</strong> — Clause 7.5: Documented Information</li>
+    <li><strong>IATF 16949:2016</strong> — Document and data control with full revision history</li>
+    <li><strong>AS 9100D</strong> — Controlled document lifecycle with approval traceability</li>
+  </ul>
+</div>
+
+<h2>&#128196; Document Hierarchy</h2>
+<div class="doc-types">
+  <span class="badge">Level 1: Manual</span>
+  <span class="badge">Level 1: Scope</span>
+  <span class="badge">Level 1: Policy</span>
+  <span class="badge blue">Level 2: Procedure</span>
+  <span class="badge blue">Level 3: Work Instruction</span>
+  <span class="badge blue">Level 3: Specification</span>
+  <span class="badge green">Level 4: Form</span>
+  <span class="badge green">Level 4: Record</span>
+  <span class="badge green">Training Material</span>
+</div>
+
+<h2>&#128260; Approval Workflow</h2>
+<div class="workflow">
+  <p>Three-stage document approval workflow with email notifications at every step:</p>
+  <div class="workflow-steps">
+    <div class="step">&#9997; Draft</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">&#128269; Under Review</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">&#9989; QM Approval</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">&#128994; Published</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">&#128308; Obsolete</div>
+  </div>
+  <ul style="margin-top:14px;">
+    <li><strong>Process Owner</strong> creates and submits the document with file attachment</li>
+    <li><strong>Document Reviewer</strong> verifies template layout and format, approves or rejects</li>
+    <li><strong>Quality Manager</strong> performs final publish — automatically obsoletes prior revision</li>
+    <li>Full rejection wizard with reason capture and email notification back to author</li>
+  </ul>
+</div>
+
+<h2>&#128293; Key Features</h2>
+<div class="feature-grid">
+  <div class="feature-box">
+    <h3>&#128193; Folder-Based Organization</h3>
+    <p>Hierarchical folder structure with unlimited nesting. Assign every document to a logical location in your QMS directory tree.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128260; Automatic Revision Control</h3>
+    <p>One-click "Create Revision" spawns a new draft. System prevents duplicate rev numbers and blocks publishing older revisions over newer ones.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128197; Annual Review Tracking</h3>
+    <p>Published documents automatically set a 1-year review date. Visual overdue indicators and one-click review reminder emails to Process Owners.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128229; Batch Download (ZIP)</h3>
+    <p>Select multiple documents and download them all as a single ZIP file — ideal for audits and document package submissions.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128274; Role-Based Security</h3>
+    <p>Three security groups: QMS User, QMS Manager, QMS Admin. Only the assigned Quality Manager can publish. Only admins can reassign roles.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128231; Automated Email Notifications</h3>
+    <p>Six email templates covering submission, reviewer approval, QM rejection, publication notice, annual review reminder, and rejection to draft.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128202; Revision History Smart Button</h3>
+    <p>Every document shows a revision count smart button. Click to see the full revision history including obsolete versions.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#9997; Document Number Formatting</h3>
+    <p>Automatic document number cleanup — enforces uppercase, hyphen-separated format. Prevents duplicates across the document series.</p>
+  </div>
+</div>
+
+<h2>&#128203; Document Fields</h2>
+<table>
+  <tr><th>Field</th><th>Description</th></tr>
+  <tr><td>Document Number</td><td>Auto-formatted unique identifier (e.g. QMS-SOP-001)</td></tr>
+  <tr><td>Title</td><td>Full document title with change tracking</td></tr>
+  <tr><td>Document Type</td><td>Manual / Procedure / Work Instruction / Form / Record / etc.</td></tr>
+  <tr><td>Revision</td><td>Numeric revision number (0, 1, 2...)</td></tr>
+  <tr><td>Folder Location</td><td>Hierarchical QMS folder assignment</td></tr>
+  <tr><td>Process Owner</td><td>Author and content owner</td></tr>
+  <tr><td>Document Reviewer</td><td>Format/layout approval role</td></tr>
+  <tr><td>Quality Manager</td><td>Final publish authority</td></tr>
+  <tr><td>Status</td><td>Draft / Under Review / QM Approval / Published / Obsolete</td></tr>
+  <tr><td>Approved By / Date</td><td>Stamped automatically on publish</td></tr>
+  <tr><td>Next Review Date</td><td>Auto-set 1 year from publish date</td></tr>
+  <tr><td>Search Keywords</td><td>Full-text search support</td></tr>
+</table>
+
+<h2>&#128279; Technical Details</h2>
+<div class="highlight">
+  <ul>
+    <li>&#9989; Native Odoo 19.0 module — no external dependencies</li>
+    <li>&#9989; Depends on: base, mail, web</li>
+    <li>&#9989; Full chatter integration with tracked field changes</li>
+    <li>&#9989; Post-install hook creates default folder structure</li>
+    <li>&#9989; All email templates created automatically on install</li>
+    <li>&#9989; License: OPL-1 (Odoo Proprietary License)</li>
+  </ul>
+</div>
+
+<h2>&#127775; Why QMS Document Control?</h2>
+<p>Most Odoo installations rely on generic document storage with no approval workflow, no revision control, and no standards compliance. This module gives small and mid-size manufacturers a complete, audit-ready document control system built directly into Odoo — no third-party QMS software required.</p>
+
+<p style="margin-top:30px; color:#888; font-size:12px;">Published by T&amp;M Consulting &mdash; Quality Management Systems for Odoo</p>
+
+</body>
+</html>
