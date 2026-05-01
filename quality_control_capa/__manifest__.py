@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'QMS: CAPA & Customer Complaint Management',
+    'version': '19.0.1.0.0',
+    'category': 'Quality',
+    'summary': 'Full CAPA lifecycle: Customer Complaints, Quality Alerts, 8D Reports, and Lessons Learned for ISO 9001, IATF 16949, and AS 9100D compliance.',
+    'author': 'T&M Consulting',
+    'website': 'https://github.com/tuneman69/AZMC',
+    'license': 'OPL-1',
+    'price': 490.00,
+    'currency': 'USD',
+    'depends': ['base', 'mail'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/qms_complaint_views.xml',
+        'views/qms_alert_views.xml',
+        'views/qms_8d_views.xml',
+        'views/qms_lesson_views.xml',
+        'views/qms_menus.xml',
+    ],
+    'images': ['static/description/banner.png'],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}
