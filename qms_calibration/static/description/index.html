@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <style>
+    body { font-family: Arial, sans-serif; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #8e44ad; padding-bottom: 10px; }
+    h2 { color: #8e44ad; margin-top: 30px; }
+    .badge { display: inline-block; background: #8e44ad; color: white; padding: 4px 12px; border-radius: 20px; font-size: 13px; margin: 3px; }
+    .badge.green { background: #27ae60; }
+    .badge.blue { background: #2980b9; }
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+    .feature-box { background: #f8f4ff; border-left: 4px solid #8e44ad; padding: 14px 16px; border-radius: 4px; }
+    .feature-box h3 { margin: 0 0 8px 0; color: #2c3e50; font-size: 15px; }
+    .feature-box p { margin: 0; font-size: 13px; color: #555; }
+    .workflow { background: #f0f4ff; border: 1px solid #c0cfe8; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .workflow-steps { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .step { background: #2980b9; color: white; padding: 8px 14px; border-radius: 4px; font-size: 13px; font-weight: bold; }
+    .arrow { color: #8e44ad; font-size: 20px; font-weight: bold; }
+    .standards { background: #fff8e1; border: 1px solid #f39c12; border-radius: 6px; padding: 16px; margin: 20px 0; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th { background: #8e44ad; color: white; padding: 10px; text-align: left; font-size: 13px; }
+    td { padding: 9px 10px; border-bottom: 1px solid #eee; font-size: 13px; }
+    tr:nth-child(even) td { background: #faf6ff; }
+    .highlight { background: #eaf7ea; border: 1px solid #27ae60; border-radius: 6px; padding: 16px; margin: 20px 0; }
+    ul { padding-left: 20px; }
+    ul li { margin: 6px 0; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+<h1>&#128207; QMS Calibration</h1>
+<p>
+  <span class="badge">ISO 9001</span>
+  <span class="badge">IATF 16949</span>
+  <span class="badge">AS 9100D</span>
+  <span class="badge green">Odoo 19.0</span>
+  <span class="badge blue">OPL-1 Licensed</span>
+</p>
+<p><strong>QMS Calibration</strong> is a complete gage and instrument calibration management system built natively in Odoo. Designed for manufacturers, aerospace suppliers, and automotive companies that must maintain a calibrated measurement system under ISO 9001, IATF 16949, and AS 9100D — without the cost of standalone metrology software.</p>
+
+<h2>&#9989; Standards Compliance</h2>
+<div class="standards">
+  <p>Built to satisfy the measurement system and calibration control clauses of all three major quality management standards:</p>
+  <ul>
+    <li><strong>ISO 9001:2015</strong> — Clause 7.1.5: Monitoring and Measuring Resources</li>
+    <li><strong>IATF 16949:2016</strong> — Clause 7.1.5.1: Measurement System Analysis and calibration records</li>
+    <li><strong>AS 9100D</strong> — Clause 7.1.5: Calibration traceability and out-of-tolerance reporting</li>
+  </ul>
+</div>
+
+<h2>&#128202; Gage Master &amp; Calibration Events</h2>
+<p>Manage every measurement device in your facility from a single Gage Master register. Log calibration events with certificate numbers, results, and technician records. The system automatically calculates the next due date based on your calibration frequency.</p>
+
+<h2>&#128260; Calibration Lifecycle</h2>
+<div class="workflow">
+  <p>Track each gage through its full calibration lifecycle with status-driven workflow:</p>
+  <div class="workflow-steps">
+    <div class="step">&#9989; Active</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">&#128228; Out for Cal</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">&#128203; Event Logged</div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">&#9989; Active</div>
+  </div>
+  <ul style="margin-top:14px;">
+    <li>Set status to <strong>Out for Calibration</strong> — system auto-creates a draft calibration event</li>
+    <li>Log results with <strong>certificate number</strong>, date, and calibrated-by information</li>
+    <li>Confirm the event to update the Last Calibration Date and recalculate Next Due Date</li>
+    <li>Automated <strong>email reminders</strong> sent 30, 15, and 7 days before due date</li>
+  </ul>
+</div>
+
+<h2>&#128293; Key Features</h2>
+<div class="feature-grid">
+  <div class="feature-box">
+    <h3>&#128207; Gage Master Register</h3>
+    <p>Central register for all measurement devices. Track Asset ID, serial number, equipment type, control strategy, and location in one place.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128197; Automatic Due Date Calculation</h3>
+    <p>Set calibration frequency in days, months, or years. Next due date is automatically computed from the last calibration date and frequency.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128231; Proactive Email Reminders</h3>
+    <p>Automated scheduled action sends reminder emails to the responsible person at 30, 15, and 7 days before calibration is due.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128196; Calibration Event History</h3>
+    <p>Full calibration history per gage including certificate number, calibration date, provider, pass/fail result, and technician name.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128274; Role-Based Security</h3>
+    <p>Three security groups: Calibration User, Calibration Manager, and Calibration Admin. Controls who can create, log events, and manage equipment types.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#9878; Internal &amp; External Calibration</h3>
+    <p>Supports both internal (in-house) and external (vendor) calibration strategies. Track vendor certificate numbers directly on the event record.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128203; Print Calibration Report</h3>
+    <p>Generate a PDF calibration record for each event — suitable for audit evidence and attaching to physical gages.</p>
+  </div>
+  <div class="feature-box">
+    <h3>&#128202; Equipment Type Management</h3>
+    <p>Configurable equipment type lookup (Micrometer, Caliper, Gauge Block, CMM, etc.) with duplicate-prevention validation.</p>
+  </div>
+</div>
+
+<h2>&#128203; Gage Master Fields</h2>
+<table>
+  <tr><th>Field</th><th>Description</th></tr>
+  <tr><td>Gage Control Number</td><td>Auto-assigned unique identifier from sequence (e.g. GAG-0001)</td></tr>
+  <tr><td>Asset ID Number</td><td>Company asset tag — forced uppercase, duplicate-checked</td></tr>
+  <tr><td>Serial Number</td><td>Manufacturer serial number — duplicate-checked</td></tr>
+  <tr><td>Equipment Type</td><td>Configurable type from managed lookup list</td></tr>
+  <tr><td>Control Strategy</td><td>Calibration (Traceable) or Verification (Process Check)</td></tr>
+  <tr><td>Provider</td><td>Internal or External (Vendor)</td></tr>
+  <tr><td>Ownership</td><td>Company, Employee, or Customer Owned</td></tr>
+  <tr><td>Status</td><td>Active / Out for Calibration / Out of Service / Inactive</td></tr>
+  <tr><td>Person Responsible</td><td>Odoo user assigned as calibration owner</td></tr>
+  <tr><td>Location</td><td>Physical location of the gage</td></tr>
+  <tr><td>Calibration Frequency</td><td>Interval and unit (days / months / years)</td></tr>
+  <tr><td>Last Calibration Date</td><td>Date of most recent completed calibration</td></tr>
+  <tr><td>Next Calibration Due Date</td><td>Auto-computed from last date + frequency</td></tr>
+  <tr><td>Acceptance Criteria</td><td>Specification or tolerance used to accept/reject</td></tr>
+  <tr><td>Method / Procedure</td><td>Reference to calibration procedure or standard</td></tr>
+</table>
+
+<h2>&#128203; Calibration Event Fields</h2>
+<table>
+  <tr><th>Field</th><th>Description</th></tr>
+  <tr><td>Gage</td><td>Linked gage master record</td></tr>
+  <tr><td>Calibration Date</td><td>Date calibration was performed</td></tr>
+  <tr><td>Calibrated By Type</td><td>Internal technician or external vendor</td></tr>
+  <tr><td>Calibrated By (User)</td><td>Odoo user if internal calibration</td></tr>
+  <tr><td>Vendor Name</td><td>Calibration lab or vendor name if external</td></tr>
+  <tr><td>Certificate Number</td><td>Cal lab certificate or report number</td></tr>
+  <tr><td>Result</td><td>Pass / Fail / Conditional</td></tr>
+  <tr><td>Notes</td><td>Free-text notes or out-of-tolerance comments</td></tr>
+  <tr><td>State</td><td>Draft / Confirmed</td></tr>
+</table>
+
+<h2>&#128279; Technical Details</h2>
+<div class="highlight">
+  <ul>
+    <li>&#9989; Native Odoo 19.0 module — no external dependencies</li>
+    <li>&#9989; Depends on: base, mail, web</li>
+    <li>&#9989; Full chatter integration with tracked field changes on all key fields</li>
+    <li>&#9989; Automated scheduled action for calibration due reminders</li>
+    <li>&#9989; Sequence-generated Gage Control Numbers</li>
+    <li>&#9989; PDF report template for calibration event records</li>
+    <li>&#9989; License: OPL-1 (Odoo Proprietary License)</li>
+  </ul>
+</div>
+
+<h2>&#127775; Why QMS Calibration?</h2>
+<p>Most manufacturers track calibration in spreadsheets or disconnected tools. This module brings your entire calibration program into Odoo — with automated reminders, full event history, and audit-ready PDF reports — eliminating the risk of missed calibrations that could jeopardize your ISO, IATF, or AS9100 certification.</p>
+
+<p style="margin-top:30px; color:#888; font-size:12px;">Published by T&amp;M Consulting &mdash; Quality Management Systems for Odoo</p>
+</body>
+</html>
