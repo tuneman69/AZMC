@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Root Menu: Visible to everyone with at least User access -->
+        <menuitem 
+            id="menu_qms_calibration_root" 
+            name="Calibration" 
+            sequence="10"
+            groups="qms_calibration.group_qms_user"
+            web_icon="qms_calibration,static/description/icon.png"/>
+
+        <!-- Gage Master: Visible to everyone (Read Only for User, Edit for Manager) -->
+        <menuitem 
+            id="menu_qms_calibration_gage" 
+            name="Gage Master" 
+            parent="menu_qms_calibration_root"
+            action="qms_calibration.action_qms_calibration_gage"
+            sequence="1"/>
+            
+        <!-- Calibration Events: Visible ONLY to Managers and Admins -->
+        <menuitem 
+            id="menu_qms_calibration_event" 
+            name="Calibration Events" 
+            parent="menu_qms_calibration_root"
+            action="qms_calibration.action_qms_calibration_event"
+            groups="qms_calibration.group_qms_manager"
+            sequence="2"/>
+    </data>
+</odoo>

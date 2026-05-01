@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- SEARCH VIEW: STRICT ODOO 19 COMPLIANT -->
+        <record id="view_qms_calibration_gage_search" model="ir.ui.view">
+            <field name="name">qms.calibration.gage.search</field>
+            <field name="model">qms.calibration.gage</field>
+            <field name="arch" type="xml">
+                <search>
+                    <!-- Standard Fields -->
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="serial_number"/>
+                    <field name="location"/>
+                    <field name="equipment_type_id"/>
+                    
+                    <!-- Filters -->
+                    <filter string="Active Gages" name="active_gages" domain="[('status', '=', 'active')]"/>
+                    <filter string="Calibration Due" name="due_soon" domain="[('date_next_calibration', '&lt;=', current_date)]"/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+
+                    <!-- Separator between Filters and Group By -->
+                    <separator/>
+
+                    <!-- GROUP BY -->
+                    <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                    <filter string="Location" name="group_location" context="{'group_by': 'location'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'equipment_type_id'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- FORM VIEW -->
+        <record id="view_qms_calibration_gage_form" model="ir.ui.view">
+            <field name="name">qms.calibration.gage.form</field>
+            <field name="model">qms.calibration.gage</field>
+            <field name="arch" type="xml">
+                <form string="Gage Master">
+                    <header>
+                        <button name="action_open_new_event" 
+                                string="Log NEW Calibration" 
+                                type="object" 
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                        <field name="active" invisible="1"/>
+                        
+                        <div class="oe_title">
+                            <label for="description" string="Asset ID"/>
+                            <h1>
+                                <field name="description" placeholder="e.g. Caliper-001" required="1"/>
+                            </h1>
+                            <div class="text-muted">
+                                System Ref: <field name="name" readonly="1"/>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="serial_number"/>
+                                <field name="equipment_type_id" placeholder="Select or Type to Create..."/>
+                                <field name="control_type" widget="radio" options="{'horizontal': true}"/>
+                                <field name="calibration_strategy" widget="radio" options="{'horizontal': true}"/>
+                                <field name="calibration_method"/>
+                                <field name="acceptance_criteria"/>
+                            </group>
+                            <group>
+                                <field name="status"/>
+                                <field name="ownership"/>
+                                <field name="owner_id"/>
+                                <field name="location"/>
+                                <field name="calibration_required"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Schedule" invisible="calibration_required == False">
+                                <group>
+                                    <field name="frequency_interval" required="calibration_required == True"/>
+                                    <field name="frequency_unit" required="calibration_required == True"/>
+                                    <field name="date_last_display"/>
+                                    <field name="date_next_display"/>
+                                </group>
+                            </page>
+                            <page string="History">
+                                <!-- CORRECTED: Use context to refer to tree view -->
+                                <field name="event_ids" 
+                                       readonly="1" 
+                                       context="{'tree_view_ref': 'qms_calibration.view_qms_calibration_event_tree'}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <!-- LIST VIEW -->
+        <record id="view_qms_calibration_gage_tree" model="ir.ui.view">
+            <field name="name">qms.calibration.gage.list</field>
+            <field name="model">qms.calibration.gage</field>
+            <field name="arch" type="xml">
+                <list string="Gages" decoration-danger="date_next_calibration &lt; current_date" decoration-warning="date_next_calibration == current_date">
+                    <field name="description" string="Asset ID"/>
+                    <field name="name" string="System Ref" optional="hide"/>
+                    <field name="equipment_type_id" optional="show"/>
+                    <field name="status" widget="badge" decoration-success="status == 'active'"/>
+                    <field name="location"/>
+                    <field name="date_next_calibration"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_qms_calibration_gage" model="ir.actions.act_window">
+            <field name="name">Gage Master</field>
+            <field name="res_model">qms.calibration.gage</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

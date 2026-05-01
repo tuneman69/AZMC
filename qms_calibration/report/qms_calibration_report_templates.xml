@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_calibration_gage_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div class="text-center mb-4">
+                                <h2 t-if="doc.control_type == 'calibration'">Gage Calibration Record</h2>
+                                <h2 t-if="doc.control_type == 'verification'">Verification Record</h2>
+                                <h4>System Ref: <span t-field="doc.name"/></h4>
+                            </div>
+                            
+                            <table class="table table-sm table-bordered mb-4">
+                                <tbody>
+                                    <tr>
+                                        <th class="bg-light" style="width: 25%;">Asset ID Number</th>
+                                        <td style="width: 25%;"><span t-field="doc.description"/></td>
+                                        <th class="bg-light" style="width: 25%;">Serial Number</th>
+                                        <td style="width: 25%;"><span t-field="doc.serial_number"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="bg-light">Equipment Type</th>
+                                        <td><span t-field="doc.equipment_type_id.name"/></td>
+                                        <th class="bg-light">Ownership</th>
+                                        <td><span t-field="doc.ownership"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="bg-light">Method</th>
+                                        <td><span t-field="doc.calibration_method"/></td>
+                                        <th class="bg-light">Strategy</th>
+                                        <td><span t-field="doc.control_type"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="bg-light">Acceptance Criteria</th>
+                                        <td><span t-field="doc.acceptance_criteria"/></td>
+                                        <th class="bg-light">Status</th>
+                                        <td><span t-field="doc.status"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="bg-light">Person Responsible</th>
+                                        <td><span t-field="doc.owner_id.name"/></td>
+                                        <th class="bg-light">Location</th>
+                                        <td><span t-field="doc.location"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4 class="mt-4">Schedule</h4>
+                            <table class="table table-sm table-bordered mb-4">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th>Required?</th>
+                                        <th>Frequency</th>
+                                        <th>Last Done</th>
+                                        <th>Next Due</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span t-if="doc.calibration_required">Yes</span>
+                                            <span t-if="not doc.calibration_required">No</span>
+                                        </td>
+                                        <td>
+                                            <span t-if="doc.calibration_required">
+                                                Every <t t-esc="doc.frequency_interval"/> <t t-esc="doc.frequency_unit"/>
+                                            </span>
+                                            <span t-if="not doc.calibration_required">N/A</span>
+                                        </td>
+                                        <td><span t-if="doc.date_last_calibration" t-esc="doc.date_last_calibration.strftime('%b %d, %Y')"/></td>
+                                        <td><span t-if="doc.date_next_calibration" t-esc="doc.date_next_calibration.strftime('%b %d, %Y')"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4 class="mt-4">History &amp; Traceability</h4>
+                            <table class="table table-sm table-bordered" style="font-size: 11px;">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th style="width: 10%;">Date</th>
+                                        <th style="width: 10%;">As Found</th>
+                                        <th style="width: 10%;">Result</th>
+                                        <th style="width: 20%;">Technician / Vendor</th>
+                                        <th style="width: 25%;">Details / Cert</th>
+                                        <th style="width: 25%;">Impact / Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-if="not doc.event_ids">
+                                        <tr>
+                                            <td colspan="6" class="text-center">No history found.</td>
+                                        </tr>
+                                    </t>
+                                    <t t-foreach="doc.event_ids" t-as="event">
+                                        <tr>
+                                            <td><span t-if="event.date_calibration" t-esc="event.date_calibration.strftime('%b %d, %Y')"/></td>
+                                            <td>
+                                                <span t-if="event.as_found_condition == 'in_tolerance'" class="text-success">In Tol</span>
+                                                <span t-if="event.as_found_condition == 'out_of_tolerance'" class="text-danger"><strong>OOT</strong></span>
+                                            </td>
+                                            <td>
+                                                <span t-if="event.result == 'pass'" class="text-success"><strong>PASS</strong></span>
+                                                <span t-if="event.result == 'fail'" class="text-danger"><strong>FAIL</strong></span>
+                                            </td>
+                                            <td>
+                                                <span t-if="event.calibrated_by_type == 'internal'">
+                                                    <span t-field="event.internal_user_id.name"/><br/>(Internal)
+                                                </span>
+                                                <span t-if="event.calibrated_by_type == 'external'">
+                                                    <!-- UPDATED to display vendor name -->
+                                                    <span t-field="event.external_vendor_id.name"/><br/>(Vendor)
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <t t-if="event.calibrated_by_type == 'internal'">
+                                                    <strong>Stds:</strong> <span t-field="event.standards_used"/><br/>
+                                                    <strong>Env:</strong> <span t-field="event.environment"/>
+                                                </t>
+                                                <t t-if="event.calibrated_by_type == 'external'">
+                                                    See Cert.
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <span t-if="event.as_found_condition == 'out_of_tolerance' or event.result == 'fail'">
+                                                    <strong>Risk:</strong> <span t-field="event.oot_impact_analysis"/>
+                                                </span>
+                                                <span t-else="">
+                                                    <span t-field="event.as_found"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

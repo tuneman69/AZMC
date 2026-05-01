@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_qms_calibration_gage" model="ir.actions.report">
+            <field name="name">Gage Record</field>
+            <field name="model">qms.calibration.gage</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">qms_calibration.report_calibration_gage_template</field>
+            <field name="report_file">qms_calibration.report_calibration_gage_template</field>
+            <field name="print_report_name">'Gage Record - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_qms_calibration_gage"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_qms_gage_user,qms.calibration.gage user,model_qms_calibration_gage,qms_calibration.group_qms_user,1,0,0,0
+access_qms_gage_manager,qms.calibration.gage manager,model_qms_calibration_gage,qms_calibration.group_qms_manager,1,1,1,0
+access_qms_gage_admin,qms.calibration.gage admin,model_qms_calibration_gage,qms_calibration.group_qms_admin,1,1,1,1
+access_qms_event_user,qms.calibration.event user,model_qms_calibration_event,qms_calibration.group_qms_user,1,0,0,0
+access_qms_event_manager,qms.calibration.event manager,model_qms_calibration_event,qms_calibration.group_qms_manager,1,1,1,0
+access_qms_event_admin,qms.calibration.event admin,model_qms_calibration_event,qms_calibration.group_qms_admin,1,1,1,1
+access_qms_type_user,qms.equipment.type user,model_qms_equipment_type,qms_calibration.group_qms_user,1,0,0,0
+access_qms_type_manager,qms.equipment.type manager,model_qms_equipment_type,qms_calibration.group_qms_manager,1,1,1,0
+access_qms_type_admin,qms.equipment.type admin,model_qms_equipment_type,qms_calibration.group_qms_admin,1,1,1,1
+access_qms_vendor_user,qms.vendor user,model_qms_vendor,qms_calibration.group_qms_user,1,0,0,0
+access_qms_vendor_manager,qms.vendor manager,model_qms_vendor,qms_calibration.group_qms_manager,1,1,1,0
+access_qms_vendor_admin,qms.vendor admin,model_qms_vendor,qms_calibration.group_qms_admin,1,1,1,1

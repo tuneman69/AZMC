@@ -1,0 +1,28 @@
+{
+    'name': "QMS Calibration",
+    'version': '19.0.0.0.3',
+    'summary': "Manage calibration and verification records for AS9100D compliance.",
+    'category': 'Quality',
+    'author': 'Todd Bitner',
+    'license': 'OPL-1',
+    'depends': [
+        'base', 
+        'mail',
+        'web', 
+    ],
+    'data': [
+        'security/qms_calibration_groups.xml',
+        'security/ir.model.access.csv',
+        'data/qms_calibration_sequence.xml',
+        'data/qms_calibration_cron.xml',
+        'mail/qms_calibration_mail_templates.xml',
+        'views/qms_calibration_event_views.xml',
+        'views/qms_calibration_gage_views.xml',
+        'views/qms_calibration_menus.xml',
+        'report/qms_calibration_report_views.xml',
+        'report/qms_calibration_report_templates.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

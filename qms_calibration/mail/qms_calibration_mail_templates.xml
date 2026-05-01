@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_qms_calibration_reminder" model="mail.template">
+            <field name="name">Calibration Due Reminder</field>
+            <field name="model_id" ref="qms_calibration.model_qms_calibration_gage"/>
+            <field name="subject">Calibration Due Soon: {{ object.name }}</field>
+            <field name="email_to">{{ object.owner_id.email_formatted }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family: 'Arial', sans-serif; font-size: 14px;">
+                    <p>Hello <t t-out="object.owner_id.name"/>,</p>
+                    <p>This is an automated reminder that the following gage is due for calibration:</p>
+                    <table style="border-collapse: collapse; width: 100%;">
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">Certification #:</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;"><strong><t t-out="object.name"/></strong></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">Asset ID #:</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;"><t t-out="object.description or 'N/A'"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2;">Due Date:</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;"><strong><t t-out="object.date_next_calibration"/></strong></td>
+                        </tr>
+                    </table>
+                    <p style="margin-top: 20px;">Please coordinate to have this gage calibrated on or before its due date.</p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>
