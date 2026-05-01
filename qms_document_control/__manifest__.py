@@ -1,11 +1,14 @@
+# -*- coding: utf-8 -*-
 {
     'name': "QMS Document Control",
-    'version': '19.0.0.2.6',
-    'summary': "ISO 9001/IATF 16949/AS 9100D Document Management",
-    'author': "Todd Bitner",
+    'version': '19.0.1.0.0',
+    'summary': "ISO 9001 / IATF 16949 / AS 9100D Document Management",
+    'author': "T&M Consulting",
     'category': 'Quality',
     'license': 'OPL-1',
-    'depends': ['base', 'mail', 'web'], 
+    'price': 225.00,
+    'currency': 'USD',
+    'depends': ['base', 'mail', 'web'],
     'web_icon': 'qms_document_control,static/description/icon.png',
     'data': [
         'security/qms_groups.xml',
@@ -13,7 +16,6 @@
         'data/qms_sequences.xml',
         'data/qms_folder_data.xml',
         'data/mail_template_data.xml',
-        'data/mail_server_data.xml',
         'views/qms_document_views.xml',
         'views/qms_menus.xml',
         'reports/qms_reports.xml',
