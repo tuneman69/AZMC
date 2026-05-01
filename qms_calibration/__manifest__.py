@@ -1,14 +1,16 @@
 {
     'name': "QMS Calibration",
-    'version': '19.0.0.0.3',
+    'version': '19.0.1.0.0',
     'summary': "Manage calibration and verification records for AS9100D compliance.",
     'category': 'Quality',
-    'author': 'Todd Bitner',
+    'author': 'T&M Consulting',
     'license': 'OPL-1',
+    'price': 149.99,
+    'currency': 'USD',
     'depends': [
-        'base', 
+        'base',
         'mail',
-        'web', 
+        'web',
     ],
     'data': [
         'security/qms_calibration_groups.xml',
