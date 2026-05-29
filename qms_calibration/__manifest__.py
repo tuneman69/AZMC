@@ -1,6 +1,7 @@
 {
     'name': "QMS Calibration",
     'version': '19.0.1.0.0',
+    'images': ['static/description/banner.png'],
     'summary': 'Manage calibration and verification records for ISO 9001, IATF 16949, and AS9100D compliance.',
     'category': 'Quality',
     'author': "T&M Consulting",
