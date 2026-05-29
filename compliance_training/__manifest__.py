@@ -2,6 +2,7 @@
 {
     'name': "Compliance Training",
     'version': '19.0.1.0.0',
+    'images': ['static/description/banner.png'],
     'summary': "Competency & Training Management System",
     'author': "T&M Consulting",
     'category': 'Human Resources',
