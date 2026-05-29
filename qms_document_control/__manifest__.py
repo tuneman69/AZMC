@@ -2,6 +2,7 @@
 {
     'name': "QMS Document Control",
     'version': '19.0.1.0.0',
+    'images': ['static/description/banner.png'],
     'summary': "ISO 9001 / IATF 16949 / AS 9100D Document Management",
     'author': "T&M Consulting",
     'category': 'Quality',
